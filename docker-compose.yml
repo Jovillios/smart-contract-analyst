@@ -1,0 +1,24 @@
+services:
+  api:
+    build: .
+    container_name: api
+    command: uv run uvicorn src.api.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    environment:
+    - OPENAI_API_KEY=${OPENAI_API_KEY}
+
+    volumes:
+      - ./src:/app/src
+      - ./data:/app/data
+
+  frontend:
+    build: .
+    container_name: frontend
+    command: uv run streamlit run src/ui/app.py --server.port 8501 --server.address 0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - API_URL=http://api:8000
+    depends_on:
+      - api 
