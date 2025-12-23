@@ -183,6 +183,7 @@ The `notebooks/` folder contains Jupyter notebooks to explore:
 - `00_discovery.ipynb`: Data exploration
 - `01_ingestion.ipynb`: Ingestion pipeline testing
 - `02_vector_store.ipynb`: ChromaDB manipulation
+- `03_rag.ipynb`: RAG implementation experiments
 
 ## 📝 License
 
