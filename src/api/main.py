@@ -7,7 +7,7 @@ from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.document_loaders import PyMuPDFLoader
-from src.api.utils import extract_documents, ingest_documents
+from src.api.utils import extract_documents, ingest_documents, get_sources
 
 app = FastAPI(title="Smart Contract Analyst")
 
@@ -39,8 +39,8 @@ def query_endpoint(request: QueryRequest):
         "context": formatted_context,
         "question": request.question
     })
-
-    return {"answer": response.content, "sources": [d.metadata for d in docs]}
+    print(docs)
+    return {"answer": response.content, "sources": [get_sources(d.metadata) for d in docs]}
 
 
 @app.post("/ingest")
